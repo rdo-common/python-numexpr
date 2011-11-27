@@ -6,15 +6,15 @@
 
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
-Version:	1.4.2
-Release:	2%{?dist}
+Version:	2.0
+Release:	1%{?dist}
 Source0:	http://numexpr.googlecode.com/files/%{module}-%{version}.tar.gz
 License:	MIT
 Group:		Development/Languages
 URL:		http://numexpr.googlecode.com/
 
-Requires:	numpy >= 1.4.1
-BuildRequires:	numpy >= 1.4.1
+Requires:	numpy >= 1.6
+BuildRequires:	numpy >= 1.6
 BuildRequires:	python-devel
 
 
@@ -53,6 +53,9 @@ chmod 0755 %{buildroot}%{python_sitearch}/%{module}/*.so
 %{python_sitearch}/numexpr-%{version}-py*.egg-info/
 
 %changelog
+* Sun Nov 27 2011 Thibault North <tnorth@fedoraproject.org> - 2.0-1
+- Update to 2.0
+
 * Sun Oct 30 2011 Thibault North <tnorth@fedoraproject.org> - 1.4.2-2
 - Add check section
 - Fix permissions and remove useless sections
