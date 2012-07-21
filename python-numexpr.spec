@@ -7,7 +7,7 @@
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
 Version:	2.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Source0:	http://numexpr.googlecode.com/files/%{module}-%{version}.tar.gz
 License:	MIT
 Group:		Development/Languages
@@ -53,6 +53,9 @@ chmod 0755 %{buildroot}%{python_sitearch}/%{module}/*.so
 %{python_sitearch}/numexpr-%{version}-py*.egg-info/
 
 %changelog
+* Sat Jul 21 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Sun Jan 8 2012  Thibault North <tnorth@fedoraproject.org> - 2.0.1-1
 - Update to 2.0.1
 
