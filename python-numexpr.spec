@@ -9,7 +9,7 @@
 
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
-Version:	2.2
+Version:	2.2.1
 Release:	1%{?dist}
 Source0:	http://numexpr.googlecode.com/files/%{module}-%{version}.tar.gz
 License:	MIT
@@ -106,6 +106,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Mon Sep 09 2013 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.1-1
+- Update to 2.2.1
+
 * Thu Sep 05 2013 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2-1
 - Update to 2.2
 - Add python3-numexpr package
@@ -138,5 +141,5 @@ popd
 * Tue Dec 21 2010 Thibault North <tnorth@fedoraproject.org> - 1.4.1-2
 - Fixes for the review process
 
-* Wed Nov 05 2010 Thibault North <tnorth@fedoraproject.org> - 1.4.1-1
+* Fri Nov 05 2010 Thibault North <tnorth@fedoraproject.org> - 1.4.1-1
 - Initial package based on Mandriva's one
