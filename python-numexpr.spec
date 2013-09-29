@@ -9,7 +9,7 @@
 
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
-Version:	2.2.1
+Version:	2.2.2
 Release:	1%{?dist}
 Source0:	http://numexpr.googlecode.com/files/%{module}-%{version}.tar.gz
 License:	MIT
@@ -106,6 +106,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Sun Sep 29 2013 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.2-1
+- Update to 2.2.2
+
 * Mon Sep 09 2013 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.1-1
 - Update to 2.2.1
 
