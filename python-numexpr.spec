@@ -10,7 +10,7 @@
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
 Version:	2.2.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Source0:	http://numexpr.googlecode.com/files/%{module}-%{version}.tar.gz
 License:	MIT
 Group:		Development/Languages
@@ -20,7 +20,6 @@ Requires:	numpy >= 1.6
 BuildRequires:	numpy >= 1.6
 BuildRequires:	python2-devel
 %if 0%{?with_python3}
-Requires:	python3-numpy >= 1.6
 BuildRequires:	python3-devel
 BuildRequires:  python3-numpy
 %endif # with_python3
@@ -29,19 +28,20 @@ BuildRequires:  python3-numpy
 The numexpr package evaluates multiple-operator array expressions many
 times faster than NumPy can. It accepts the expression as a string,
 analyzes it, rewrites it more efficiently, and compiles it to faster
-Python code on the fly. It's the next best thing to writing the
+Python code on the fly. It’s the next best thing to writing the
 expression in C and compiling it with a specialized just-in-time (JIT)
 compiler, i.e. it does not require a compiler at runtime.
 
 %if 0%{?with_python3}
 %package -n python3-%{module}
 Summary:	Fast numerical array expression evaluator for Python and NumPy
+Requires:	python3-numpy >= 1.6
 
 %description -n python3-%{module}
 The numexpr package evaluates multiple-operator array expressions many
 times faster than NumPy can. It accepts the expression as a string,
 analyzes it, rewrites it more efficiently, and compiles it to faster
-Python code on the fly. It's the next best thing to writing the
+Python code on the fly. It’s the next best thing to writing the
 expression in C and compiling it with a specialized just-in-time (JIT)
 compiler, i.e. it does not require a compiler at runtime.
 
@@ -106,8 +106,11 @@ popd
 %endif # with_python3
 
 %changelog
+* Fri Jan 17 2014 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.2-2
+- Move requirements to the proper package (#1054683)
+
 * Sun Sep 29 2013 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.2-1
-- Update to 2.2.2
+- Update to 2.2.2 (#1013130)
 
 * Mon Sep 09 2013 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.1-1
 - Update to 2.2.1
