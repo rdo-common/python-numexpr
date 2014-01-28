@@ -9,9 +9,9 @@
 
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
-Version:	2.2.2
-Release:	2%{?dist}
-Source0:	http://numexpr.googlecode.com/files/%{module}-%{version}.tar.gz
+Version:	2.3
+Release:	1%{?dist}
+Source0:	https://github.com/pydata/numexpr/archive/%{module}-%{version}.tar.gz
 License:	MIT
 Group:		Development/Languages
 URL:		http://numexpr.googlecode.com/
@@ -21,7 +21,7 @@ BuildRequires:	numpy >= 1.6
 BuildRequires:	python2-devel
 %if 0%{?with_python3}
 BuildRequires:	python3-devel
-BuildRequires:  python3-numpy
+BuildRequires:	python3-numpy
 %endif # with_python3
 
 %description
@@ -94,18 +94,21 @@ popd
 %endif # with_python3
 
 %files
-%doc ANNOUNCE.txt LICENSE.txt RELEASE_NOTES.txt README.txt
+%doc ANNOUNCE.rst LICENSE.txt RELEASE_NOTES.rst README.rst
 %{python_sitearch}/numexpr/
 %{python_sitearch}/numexpr-%{version}-py*.egg-info/
 
 %if 0%{?with_python3}
 %files -n python3-%{module}
-%doc ANNOUNCE.txt LICENSE.txt RELEASE_NOTES.txt README.txt
+%doc ANNOUNCE.rst LICENSE.txt RELEASE_NOTES.rst README.rst
 %{python3_sitearch}/numexpr/
 %{python3_sitearch}/numexpr-%{version}-py*.egg-info
 %endif # with_python3
 
 %changelog
+* Tue Jan 28 2014 Thibault North <tnorth@fedoraproject.org> -2.3-1
+- Update to new release 2.3
+
 * Fri Jan 17 2014 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.2-2
 - Move requirements to the proper package (#1054683)
 
