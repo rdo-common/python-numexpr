@@ -10,7 +10,7 @@
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
 Version:	2.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 Source0:	https://github.com/pydata/numexpr/archive/%{module}-%{version}.tar.gz
 License:	MIT
 Group:		Development/Languages
@@ -106,6 +106,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
