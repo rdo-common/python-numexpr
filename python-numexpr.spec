@@ -9,9 +9,9 @@
 
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
-Version:	2.3
-Release:	7%{?dist}
-Source0:	https://github.com/pydata/numexpr/archive/%{module}-%{version}.tar.gz
+Version:	2.4.6
+Release:	1%{?dist}
+Source0:	https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
 License:	MIT
 Group:		Development/Languages
 URL:		http://numexpr.googlecode.com/
@@ -94,18 +94,23 @@ popd
 %endif # with_python3
 
 %files
-%doc ANNOUNCE.rst LICENSE.txt RELEASE_NOTES.rst README.rst
+%license LICENSE.txt
+%doc ANNOUNCE.rst RELEASE_NOTES.rst README.rst
 %{python_sitearch}/numexpr/
 %{python_sitearch}/numexpr-%{version}-py*.egg-info/
 
 %if 0%{?with_python3}
 %files -n python3-%{module}
-%doc ANNOUNCE.rst LICENSE.txt RELEASE_NOTES.rst README.rst
+%license LICENSE.txt
+%doc ANNOUNCE.rst RELEASE_NOTES.rst README.rst
 %{python3_sitearch}/numexpr/
 %{python3_sitearch}/numexpr-%{version}-py*.egg-info
 %endif # with_python3
 
 %changelog
+* Sat Nov 14 2015 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.6-1
+- Update to latest version
+
 * Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
 
