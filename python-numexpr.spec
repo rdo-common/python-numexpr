@@ -10,13 +10,12 @@
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
 Version:	2.4.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Source0:	https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
 License:	MIT
 Group:		Development/Languages
 URL:		http://numexpr.googlecode.com/
 
-Requires:	numpy >= 1.6
 BuildRequires:	numpy >= 1.6
 BuildRequires:	python2-devel
 %if 0%{?with_python3}
@@ -32,10 +31,26 @@ Python code on the fly. It’s the next best thing to writing the
 expression in C and compiling it with a specialized just-in-time (JIT)
 compiler, i.e. it does not require a compiler at runtime.
 
+%package -n python2-%{module}
+Summary:	%{summary}
+Requires:	numpy >= 1.6
+%{?python_provide:%python_provide python2-%{module}}
+
+%description -n python2-%{module}
+The numexpr package evaluates multiple-operator array expressions many
+times faster than NumPy can. It accepts the expression as a string,
+analyzes it, rewrites it more efficiently, and compiles it to faster
+Python code on the fly. It’s the next best thing to writing the
+expression in C and compiling it with a specialized just-in-time (JIT)
+compiler, i.e. it does not require a compiler at runtime.
+
+This is the version for Python 2.
+
 %if 0%{?with_python3}
 %package -n python3-%{module}
-Summary:	Fast numerical array expression evaluator for Python and NumPy
+Summary:	%{summary}
 Requires:	python3-numpy >= 1.6
+%{?python_provide:%python_provide python3-%{module}}
 
 %description -n python3-%{module}
 The numexpr package evaluates multiple-operator array expressions many
@@ -93,7 +108,7 @@ python3 setup.py install -O1 --skip-build --root=%{buildroot}
 popd
 %endif # with_python3
 
-%files
+%files -n python2-%{module}
 %license LICENSE.txt
 %doc ANNOUNCE.rst RELEASE_NOTES.rst README.rst
 %{python_sitearch}/numexpr/
@@ -108,6 +123,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Wed Nov 18 2015 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.6-2
+- Create python2 subpackage
+
 * Sat Nov 14 2015 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.6-1
 - Update to latest version
 
