@@ -9,7 +9,7 @@
 
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
-Version:	2.5
+Version:	2.5.2
 Release:	1%{?dist}
 Source0:	https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
 License:	MIT
@@ -23,26 +23,22 @@ BuildRequires:	python3-devel
 BuildRequires:	python3-numpy
 %endif # with_python3
 
-%description
-The numexpr package evaluates multiple-operator array expressions many
-times faster than NumPy can. It accepts the expression as a string,
-analyzes it, rewrites it more efficiently, and compiles it to faster
-Python code on the fly. It’s the next best thing to writing the
-expression in C and compiling it with a specialized just-in-time (JIT)
+%global _description \
+The numexpr package evaluates multiple-operator array expressions many \
+times faster than NumPy can. It accepts the expression as a string,    \
+analyzes it, rewrites it more efficiently, and compiles it to faster   \
+Python code on the fly. It’s the next best thing to writing the        \
+expression in C and compiling it with a specialized just-in-time (JIT) \
 compiler, i.e. it does not require a compiler at runtime.
+
+%description %_description
 
 %package -n python2-%{module}
 Summary:	%{summary}
 Requires:	numpy >= 1.6
 %{?python_provide:%python_provide python2-%{module}}
 
-%description -n python2-%{module}
-The numexpr package evaluates multiple-operator array expressions many
-times faster than NumPy can. It accepts the expression as a string,
-analyzes it, rewrites it more efficiently, and compiles it to faster
-Python code on the fly. It’s the next best thing to writing the
-expression in C and compiling it with a specialized just-in-time (JIT)
-compiler, i.e. it does not require a compiler at runtime.
+%description -n python2-%{module} %_description
 
 This is the version for Python 2.
 
@@ -52,13 +48,7 @@ Summary:	%{summary}
 Requires:	python3-numpy >= 1.6
 %{?python_provide:%python_provide python3-%{module}}
 
-%description -n python3-%{module}
-The numexpr package evaluates multiple-operator array expressions many
-times faster than NumPy can. It accepts the expression as a string,
-analyzes it, rewrites it more efficiently, and compiles it to faster
-Python code on the fly. It’s the next best thing to writing the
-expression in C and compiling it with a specialized just-in-time (JIT)
-compiler, i.e. it does not require a compiler at runtime.
+%description -n python3-%{module} %_description
 
 This is the version for Python 3.
 %endif # with_python3
@@ -75,36 +65,36 @@ cp -a . %{py3dir}
 %endif # with_python3
 
 %build
-python setup.py build
+%py2_build
 %if 0%{?with_python3}
 pushd %{py3dir}
-python3 setup.py build
+%py3_build
 popd
 %endif # with_python3
 
 %check
 libdir=`ls build/|grep lib`
 pushd "build/$libdir"
-python -c 'import numexpr; numexpr.test()'
+%{__python2} -c 'import numexpr; numexpr.test()'
 popd
 
 %if 0%{?with_python3}
 pushd %{py3dir}
 libdir=`ls build/|grep lib`
 cd "build/$libdir"
-python3 -c 'import numexpr; numexpr.test()'
+%{__python3} -c 'import numexpr; numexpr.test()'
 popd
 %endif # with_python3
 
 %install
-python setup.py install -O1 --skip-build --root=%{buildroot}
+%py2_install
 #This could be done more properly ?
 chmod 0644 %{buildroot}%{python_sitearch}/%{module}/cpuinfo.py
 chmod 0755 %{buildroot}%{python_sitearch}/%{module}/*.so
 
 %if 0%{?with_python3}
 pushd %{py3dir}
-python3 setup.py install -O1 --skip-build --root=%{buildroot}
+%py3_install
 popd
 %endif # with_python3
 
@@ -123,7 +113,10 @@ popd
 %endif # with_python3
 
 %changelog
-* Sat Feb  6 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@bupkis> - 2.5-1
+* Tue Apr 12 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.5.2-1
+- Update to latest version (#1305251)
+
+* Sat Feb  6 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.5-1
 - Update to latest version
 
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-3
