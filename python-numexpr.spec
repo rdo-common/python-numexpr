@@ -1,16 +1,14 @@
 %global with_python3 1
 
-%{?filter_setup:
-%filter_provides_in %{python_sitearch}/.*\.so$
-%filter_provides_in %{python3_sitearch}/.*\.so$
-%filter_setup}
+# we don't want to provide private python extension libs in either the python2 or python3 dirs
+%global __provides_exclude_from ^(%{python2_sitearch}|%{python3_sitearch})/.*\\.so$
 
 %global	module	numexpr
 
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
 Version:	2.5.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Source0:	https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
 License:	MIT
 Group:		Development/Languages
@@ -19,8 +17,8 @@ URL:		http://numexpr.googlecode.com/
 BuildRequires:	numpy >= 1.6
 BuildRequires:	python2-devel
 %if 0%{?with_python3}
-BuildRequires:	python3-devel
-BuildRequires:	python3-numpy
+BuildRequires:	python%{python3_pkgversion}-devel
+BuildRequires:	python%{python3_pkgversion}-numpy
 %endif # with_python3
 
 %global _description \
@@ -43,12 +41,12 @@ Requires:	numpy >= 1.6
 This is the version for Python 2.
 
 %if 0%{?with_python3}
-%package -n python3-%{module}
+%package -n python%{python3_pkgversion}-%{module}
 Summary:	%{summary}
-Requires:	python3-numpy >= 1.6
-%{?python_provide:%python_provide python3-%{module}}
+Requires:	python%{python3_pkgversion}-numpy >= 1.6
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{module}}
 
-%description -n python3-%{module} %_description
+%description -n python%{python3_pkgversion}-%{module} %_description
 
 This is the version for Python 3.
 %endif # with_python3
@@ -59,31 +57,10 @@ This is the version for Python 3.
 
 sed -i "s|/usr/bin/env |/usr/bin/|" %{module}/cpuinfo.py
 
-%if 0%{?with_python3}
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-%endif # with_python3
-
 %build
 %py2_build
 %if 0%{?with_python3}
-pushd %{py3dir}
 %py3_build
-popd
-%endif # with_python3
-
-%check
-libdir=`ls build/|grep lib`
-pushd "build/$libdir"
-%{__python2} -c 'import numexpr; numexpr.test()'
-popd
-
-%if 0%{?with_python3}
-pushd %{py3dir}
-libdir=`ls build/|grep lib`
-cd "build/$libdir"
-%{__python3} -c 'import numexpr; numexpr.test()'
-popd
 %endif # with_python3
 
 %install
@@ -91,21 +68,28 @@ popd
 #This could be done more properly ?
 chmod 0644 %{buildroot}%{python_sitearch}/%{module}/cpuinfo.py
 chmod 0755 %{buildroot}%{python_sitearch}/%{module}/*.so
-
 %if 0%{?with_python3}
-pushd %{py3dir}
 %py3_install
+%endif # with_python3
+
+%check
+pushd build/lib.linux*%{python2_version}
+%{__python2} -c 'import numexpr; numexpr.test()'
+popd
+%if 0%{?with_python3}
+pushd build/lib.linux*%{python3_version}
+PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -c 'import numexpr; numexpr.test()'
 popd
 %endif # with_python3
 
 %files -n python2-%{module}
 %license LICENSE.txt
 %doc ANNOUNCE.rst RELEASE_NOTES.rst README.rst
-%{python_sitearch}/numexpr/
-%{python_sitearch}/numexpr-%{version}-py*.egg-info/
+%{python2_sitearch}/numexpr/
+%{python2_sitearch}/numexpr-%{version}-py*.egg-info/
 
 %if 0%{?with_python3}
-%files -n python3-%{module}
+%files -n python%{python3_pkgversion}-%{module}
 %license LICENSE.txt
 %doc ANNOUNCE.rst RELEASE_NOTES.rst README.rst
 %{python3_sitearch}/numexpr/
@@ -113,6 +97,11 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue May 17 2016 Orion Poplawski <orion@cora.nwra.com> - 2.5.2-2
+- Update provides filter
+- Use %%python3_pkgversion for EPEL7 compatibility
+- Drop %%py3dir
+
 * Tue Apr 12 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.5.2-1
 - Update to latest version (#1305251)
 
