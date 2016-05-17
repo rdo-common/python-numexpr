@@ -16,9 +16,11 @@ URL:		http://numexpr.googlecode.com/
 
 BuildRequires:	numpy >= 1.6
 BuildRequires:	python2-devel
+BuildRequires:	python2-setuptools
 %if 0%{?with_python3}
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-numpy
+BuildRequires:	python%{python3_pkgversion}-setuptools
 %endif # with_python3
 
 %global _description \
