@@ -3,24 +3,24 @@
 # we don't want to provide private python extension libs in either the python2 or python3 dirs
 %global __provides_exclude_from ^(%{python2_sitearch}|%{python3_sitearch})/.*\\.so$
 
-%global	module	numexpr
+%global module numexpr
 
-Summary:	Fast numerical array expression evaluator for Python and NumPy
-Name:		python-%{module}
-Version:	2.6.0
-Release:	1%{?dist}
-Source0:	https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
-License:	MIT
-Group:		Development/Languages
-URL:		http://numexpr.googlecode.com/
+Summary:        Fast numerical array expression evaluator for Python and NumPy
+Name:           python-%{module}
+Version:        2.6.0
+Release:        1%{?dist}
+Source0:        https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
+License:        MIT
+Group:          Development/Languages
+URL:            http://numexpr.googlecode.com/
 
-BuildRequires:	numpy >= 1.6
-BuildRequires:	python2-devel
-BuildRequires:	python2-setuptools
+BuildRequires:  numpy >= 1.6
+BuildRequires:  python2-devel
+BuildRequires:  python2-setuptools
 %if 0%{?with_python3}
-BuildRequires:	python%{python3_pkgversion}-devel
-BuildRequires:	python%{python3_pkgversion}-numpy
-BuildRequires:	python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-numpy
+BuildRequires:  python%{python3_pkgversion}-setuptools
 %endif # with_python3
 
 %global _description \
@@ -34,8 +34,8 @@ compiler, i.e. it does not require a compiler at runtime.
 %description %_description
 
 %package -n python2-%{module}
-Summary:	%{summary}
-Requires:	numpy >= 1.6
+Summary:        %{summary}
+Requires:       numpy >= 1.6
 %{?python_provide:%python_provide python2-%{module}}
 
 %description -n python2-%{module} %_description
@@ -44,8 +44,8 @@ This is the version for Python 2.
 
 %if 0%{?with_python3}
 %package -n python%{python3_pkgversion}-%{module}
-Summary:	%{summary}
-Requires:	python%{python3_pkgversion}-numpy >= 1.6
+Summary:        %{summary}
+Requires:       python%{python3_pkgversion}-numpy >= 1.6
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{module}}
 
 %description -n python%{python3_pkgversion}-%{module} %_description
