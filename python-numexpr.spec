@@ -7,8 +7,8 @@
 
 Summary:	Fast numerical array expression evaluator for Python and NumPy
 Name:		python-%{module}
-Version:	2.5.2
-Release:	2%{?dist}
+Version:	2.6.0
+Release:	1%{?dist}
 Source0:	https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
 License:	MIT
 Group:		Development/Languages
@@ -99,6 +99,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Wed Jun  1 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.0-1
+- Update to latest version
+
 * Tue May 17 2016 Orion Poplawski <orion@cora.nwra.com> - 2.5.2-2
 - Update provides filter
 - Use %%python3_pkgversion for EPEL7 compatibility
