@@ -8,7 +8,7 @@
 Summary:        Fast numerical array expression evaluator for Python and NumPy
 Name:           python-%{module}
 Version:        2.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
 License:        MIT
 Group:          Development/Languages
@@ -100,6 +100,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6.1-2
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
 * Tue Jul 19 2016 Thibault North <tnorth@fedoraproject.org> - 2.6.1-1
 - Update to 2.6.1
 - Fix project URL
