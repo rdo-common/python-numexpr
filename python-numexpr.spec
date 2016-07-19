@@ -7,12 +7,12 @@
 
 Summary:        Fast numerical array expression evaluator for Python and NumPy
 Name:           python-%{module}
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Source0:        https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
 License:        MIT
 Group:          Development/Languages
-URL:            http://numexpr.googlecode.com/
+URL:            https://github.com/pydata/numexpr
 
 BuildRequires:  numpy >= 1.6
 BuildRequires:  python2-devel
@@ -68,10 +68,11 @@ sed -i "s|/usr/bin/env |/usr/bin/|" %{module}/cpuinfo.py
 %install
 %py2_install
 #This could be done more properly ?
-chmod 0644 %{buildroot}%{python_sitearch}/%{module}/cpuinfo.py
-chmod 0755 %{buildroot}%{python_sitearch}/%{module}/*.so
+chmod 0755 %{buildroot}%{python_sitearch}/%{module}/cpuinfo.py
+chmod 0644 %{buildroot}%{python_sitearch}/%{module}/*.so
 %if 0%{?with_python3}
 %py3_install
+chmod 0755 %{buildroot}%{python3_sitearch}/%{module}/cpuinfo.py
 %endif # with_python3
 
 %check
@@ -99,6 +100,11 @@ popd
 %endif # with_python3
 
 %changelog
+* Tue Jul 19 2016 Thibault North <tnorth@fedoraproject.org> - 2.6.1-1
+- Update to 2.6.1
+- Fix project URL
+- Fix cpuinfo permission in py3 package
+
 * Wed Jun  1 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.0-1
 - Update to latest version
 
