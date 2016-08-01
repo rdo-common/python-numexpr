@@ -8,7 +8,7 @@
 Summary:        Fast numerical array expression evaluator for Python and NumPy
 Name:           python-%{module}
 Version:        2.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Source0:        https://github.com/pydata/numexpr/archive/v%{version}.tar.gz#/%{module}-%{version}.tar.gz
 License:        MIT
 Group:          Development/Languages
@@ -57,8 +57,6 @@ This is the version for Python 3.
 %prep
 %setup -q -n %{module}-%{version}
 
-sed -i "s|/usr/bin/env |/usr/bin/|" %{module}/cpuinfo.py
-
 %build
 %py2_build
 %if 0%{?with_python3}
@@ -70,9 +68,11 @@ sed -i "s|/usr/bin/env |/usr/bin/|" %{module}/cpuinfo.py
 #This could be done more properly ?
 chmod 0755 %{buildroot}%{python_sitearch}/%{module}/cpuinfo.py
 chmod 0644 %{buildroot}%{python_sitearch}/%{module}/*.so
+sed -i "1s|/usr/bin/env python$|%{__python2}|" %{buildroot}%{python2_sitearch}/%{module}/cpuinfo.py
 %if 0%{?with_python3}
 %py3_install
 chmod 0755 %{buildroot}%{python3_sitearch}/%{module}/cpuinfo.py
+sed -i "1s|/usr/bin/env python$|%{__python3}|" %{buildroot}%{python3_sitearch}/%{module}/cpuinfo.py
 %endif # with_python3
 
 %check
@@ -100,6 +100,9 @@ popd
 %endif # with_python3
 
 %changelog
+* Sat Jul 30 2016 Petr Viktorin <pviktori@redhat.com> - 2.6.1-3
+- Make shebang of cpuinfo.py refer to specific Python version (#1361799)
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6.1-2
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
