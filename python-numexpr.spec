@@ -1,4 +1,4 @@
-%global with_python3 1
+%global with_python3 0
 
 # we don't want to provide private python extension libs in either the python2 or python3 dirs
 %global __provides_exclude_from ^(%{python2_sitearch}|%{python3_sitearch})/.*\\.so$
